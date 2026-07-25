@@ -23,7 +23,6 @@ A vibrant, modernized approach to classic arcade physics. Players use responsive
 **DEVELOPER PROFILE & VERIFICATION STAGING :** 
 **Status:** Pre-Release Private Beta / Closed UAT Staging.  
 **Operational Region:** Dubai/Sharjah, United Arab Emirates (UAE).  
-**Onboarding Intent:** Ad Placement API integration for server-side telemetry and performance verification.  
-**Corporate Website Portal:** [Launch Live Web Address Link Placeholder]  
+**Onboarding Intent:** Ad Placement API integration for server-side telemetry and performance verification.   
 **Developer Email Address:** bbgmobileappdeveloper@gmail.com
 

@@ -3,13 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BBG-Skill-Games Studio — Mondiad UAT Test Hub</title>
+  <title>BBG-Skill-Games Studio — Mondiad UAT Hub</title>
 
   <!-- MONDIAD SITE VERIFICATION -->
   <meta name="mnd-ver" content="gohi8txg4bwvmft0pylolg" />
-
-  <!-- ALWAYS ACTIVE: BANNER SCRIPT (ZONE 80626) -->
-  <script async src="https://ss.mrmnd.com/banner.js"></script>
 
   <style>
     * {
@@ -24,7 +21,7 @@
       color: #ffffff;
       text-align: center;
       padding: 20px;
-      padding-bottom: 140px; /* Space for sticky bottom banner */
+      padding-bottom: 150px; /* Space for bottom banner */
     }
 
     .header-box {
@@ -33,7 +30,7 @@
       padding: 20px;
       border-radius: 10px;
       max-width: 600px;
-      margin: 0 auto 30px auto;
+      margin: 0 auto 25px auto;
     }
 
     .uat-badge {
@@ -43,14 +40,12 @@
       border-radius: 12px;
       font-weight: bold;
       font-size: 12px;
-      letter-spacing: 1px;
     }
 
     h1 {
       color: #38bdf8;
       font-size: 22px;
       margin-top: 10px;
-      margin-bottom: 6px;
     }
 
     p {
@@ -63,20 +58,19 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
     }
 
     .btn {
       background-color: #38bdf8;
       color: #0f172a;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
-      padding: 16px 20px;
+      padding: 14px 20px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
 
     .btn:hover {
@@ -96,8 +90,8 @@
       min-height: 24px;
     }
 
-    .native-box {
-      max-width: 500px;
+    .ad-display-box {
+      max-width: 600px;
       margin: 20px auto;
       padding: 15px;
       border: 1px dashed #38bdf8;
@@ -106,12 +100,13 @@
       display: none;
     }
 
-    /* STICKY BOTTOM BANNER */
+    /* FIXED BOTTOM BANNER */
     .bottom-banner-container {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
+      min-height: 90px;
       background: #1e293b;
       border-top: 2px solid #38bdf8;
       padding: 10px 0;
@@ -126,83 +121,91 @@
   <div class="header-box">
     <span class="uat-badge">UAT STAGING HUB</span>
     <h1>Mondiad Ad Formats Testing</h1>
-    <p>Click any button below to trigger and test that specific ad format.</p>
+    <p>Select a category below to execute and test the ad format.</p>
   </div>
 
   <!-- 6 TEST BUTTONS -->
   <div class="button-container">
-    <button class="btn" onclick="triggerNative()">1. Test Native Ad (Zone 80632)</button>
-    <button class="btn" onclick="triggerInterstitial()">2. Test Interstitial Ad (Zone 80627)</button>
-    <button class="btn" onclick="triggerPopunder()">3. Test Popunder Ad (Zone 80628)</button>
-    <button class="btn" onclick="triggerDynamic()">4. Test Dynamic Ad (Zone 80629)</button>
-    <button class="btn" onclick="triggerInPagePush()">5. Test In-Page Push (Zone 80630)</button>
-    <button class="btn" onclick="triggerClassicPush()">6. Test Classic Push (Zone 80631)</button>
+    <button class="btn" onclick="runNative()">1. Test Native Ad (Zone 80632)</button>
+    <button class="btn" onclick="runInterstitial()">2. Test Interstitial Ad (Zone 80627)</button>
+    <button class="btn" onclick="runPopunder()">3. Test Popunder Ad (Zone 80628)</button>
+    <button class="btn" onclick="runDynamic()">4. Test Dynamic Ad (Zone 80629)</button>
+    <button class="btn" onclick="runInPagePush()">5. Test In-Page Push (Zone 80630)</button>
+    <button class="btn" onclick="runClassicPush()">6. Test Classic Push (Zone 80631)</button>
 
     <div id="status-msg"></div>
   </div>
 
-  <!-- NATIVE AD CONTAINER (EXPANDS BELOW BUTTONS) -->
-  <div id="native-container" class="native-box">
-    <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">Native Ad Placement (Zone 80632)</p>
+  <!-- NATIVE AD CONTAINER -->
+  <div id="native-box" class="ad-display-box">
+    <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">Native Ad Slot (Zone 80632)</p>
     <div data-mndazid="728b68f4-f99e-412b-a097-86849878ecc1"></div>
   </div>
 
-  <!-- BOTTOM FIXED BANNER AD -->
+  <!-- DYNAMIC AD CONTAINER -->
+  <div id="dynamic-box" class="ad-display-box">
+    <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">Dynamic Floating Slot (Zone 80629)</p>
+    <div data-mnddynid="553a1e5c-81ac-4251-9fd7-47dec91a951f"></div>
+  </div>
+
+  <!-- STICKY BOTTOM BANNER -->
   <div class="bottom-banner-container">
-    <div style="font-size: 11px; color: #94a3b8; margin-bottom: 5px;">Mondiad Banner Ad (Zone 80626)</div>
+    <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Mondiad Banner Ad (Zone 80626)</div>
     <div data-mndbanid="f18edcb6-dc5d-4230-ae93-257025a20165"></div>
+    <!-- Script placed directly inside container for reliable execution -->
+    <script src="https://ss.mrmnd.com/banner.js"></script>
   </div>
 
   <script>
-    function showStatus(text) {
-      document.getElementById('status-msg').innerText = text;
+    function updateStatus(msg) {
+      document.getElementById('status-msg').innerText = msg;
     }
 
-    function loadScript(src, attrs = {}) {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = src;
-      for (const [k, v] of Object.entries(attrs)) {
-        script.setAttribute(k, v);
+    function appendAdScript(src, attrs = {}) {
+      const s = document.createElement('script');
+      s.src = src;
+      for (const [key, val] of Object.entries(attrs)) {
+        s.setAttribute(key, val);
       }
-      document.head.appendChild(script);
+      document.body.appendChild(s);
     }
 
-    // 1. Native Ad Trigger
-    function triggerNative() {
-      document.getElementById('native-container').style.display = 'block';
-      loadScript('https://ss.mrmnd.com/native.js');
-      showStatus('⚡ Native script loaded (Zone 80632). Ad displaying below.');
+    // 1. Native Ad
+    function runNative() {
+      document.getElementById('native-box').style.display = 'block';
+      appendAdScript('https://ss.mrmnd.com/native.js');
+      updateStatus('⚡ Native Ad triggered.');
     }
 
-    // 2. Interstitial Ad Trigger
-    function triggerInterstitial() {
-      loadScript('https://ss.mrmnd.com/interstitial.js', { 'data-mndintid': '2ef58810-d585-4fba-ba2a-bb2adcd29ff7' });
-      showStatus('⚡ Interstitial script loaded (Zone 80627).');
+    // 2. Interstitial Ad
+    function runInterstitial() {
+      appendAdScript('https://ss.mrmnd.com/interstitial.js', { 'data-mndintid': '2ef58810-d585-4fba-ba2a-bb2adcd29ff7' });
+      updateStatus('⚡ Interstitial script attached.');
     }
 
-    // 3. Popunder Ad Trigger
-    function triggerPopunder() {
-      loadScript('https://ss.mrmnd.com/popunder.js', { 'data-mndpopid': '962e6f8c-77c1-4e17-bc44-b48a82991414' });
-      showStatus('⚡ Popunder script loaded (Zone 80628). Click anywhere to trigger.');
+    // 3. Popunder Ad
+    function runPopunder() {
+      appendAdScript('https://ss.mrmnd.com/popunder.js', { 'data-mndpopid': '962e6f8c-77c1-4e17-bc44-b48a82991414' });
+      updateStatus('⚡ Popunder active — click anywhere on the page to test.');
     }
 
-    // 4. Dynamic Ad Trigger (Floats top/bottom bar)
-    function triggerDynamic() {
-      loadScript('https://ss.mrmnd.com/dynamic.js', { 'data-mnddynid': '553a1e5c-81ac-4251-9fd7-47dec91a951f' });
-      showStatus('⚡ Dynamic floating script loaded (Zone 80629).');
+    // 4. Dynamic Ad
+    function runDynamic() {
+      document.getElementById('dynamic-box').style.display = 'block';
+      appendAdScript('https://ss.mrmnd.com/dynamic.js');
+      updateStatus('⚡ Dynamic Ad script attached.');
     }
 
-    // 5. In-Page Push Trigger
-    function triggerInPagePush() {
-      loadScript('https://ss.mrmnd.com/static/6b5cc626-dcfa-42c8-9bfd-ee7ba8e4fc30.js');
-      showStatus('⚡ In-Page Push script loaded (Zone 80630).');
+    // 5. In-Page Push
+    function runInPagePush() {
+      appendAdScript('https://ss.mrmnd.com/static/6b5cc626-dcfa-42c8-9bfd-ee7ba8e4fc30.js');
+      updateStatus('⚡ In-Page Push script loaded.');
     }
 
-    // 6. Classic Push Trigger
-    function triggerClassicPush() {
-      loadScript('https://ss.mrmnd.com/static/49ef5365-1fc7-4d28-8a6c-681b152fb256.js');
-      showStatus('⚡ Classic Push script loaded (Zone 80631).');
+    // 6. Classic Push
+    function runClassicPush() {
+      appendAdScript('https://ss.mrmnd.com/static/49ef5365-1fc7-4d28-8a6c-681b152fb256.js');
+      updateStatus('⚡ Classic Push request initiated.');
     }
   </script>
 

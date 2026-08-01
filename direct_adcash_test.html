@@ -3,17 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBG Skill Games - Direct Adcash UAT</title>
+    <title>BBG Skill Games - Direct Adcash Manual Zones UAT</title>
     
-    <!-- EXPLICIT HTTPS ADCASH AUTOTAG SCRIPT -->
+    <!-- ADCASH JS LIBRARY INGESTION -->
     <script id="aclib" type="text/javascript" src="https://acscdn.com/script/aclib.js"></script>
-    <script type="text/javascript">
-        if (typeof aclib !== 'undefined') {
-            aclib.runAutoTag({
-                zoneId: 'q7x1i3x1xw',
-            });
-        }
-    </script>
 
     <style>
         body {
@@ -82,7 +75,6 @@
             justify-content: center;
             border: 1px solid #333;
             overflow: hidden;
-            position: relative;
         }
         .api-panel {
             background: #151515;
@@ -102,49 +94,69 @@
 
 <div class="wrapper">
     <h1>BBG SKILL GAMES</h1>
-    <div class="subtitle">Direct Adcash Verification Sandbox (AutoTag Engine)</div>
+    <div class="subtitle">Direct Adcash Manual Zone Verification Sandbox (Bypass Node-RED)</div>
 
     <div class="test-grid">
-        <!-- Component 1: Interactive Popunder Trigger -->
+        <!-- Component 1: Video Ad Validation Card (Video Slider Zone 11882102 + In-Stream VAST 11882098) -->
         <div class="card">
-            <h3>1. Interactive Pop-Under / Video</h3>
-            <p>Triggers user-click event stream to initialize Adcash Pop-Under / Interstitial ad windows.</p>
-            <button class="btn" onclick="triggerAdcashEvent('popunder')">Launch Pop-Under Ad</button>
+            <h3>1. Video Ad Test</h3>
+            <p>Triggers Adcash Video Slider (Zone 11882102) and opens direct live VAST video stream panel (Zone 11882098).</p>
+            <button class="btn" onclick="triggerDirectLiveAd('video')">Launch Video Ad</button>
         </div>
 
-        <!-- Component 2: Static Push / In-Page Banner Event -->
+        <!-- Component 2: Static Interstitial Validation Card (Interstitial Zone 11882090) -->
         <div class="card">
             <h3>2. Static Interstitial Ad</h3>
-            <p>Fires page interaction signal to trigger floating push notifications and full-screen overlays.</p>
-            <button class="btn" onclick="triggerAdcashEvent('static')">Launch Static Ad</button>
+            <p>Fires full-page static interstitial overlay (Zone 11882090) to simulate level completion monetization.</p>
+            <button class="btn" onclick="triggerDirectLiveAd('static')">Launch Static Ad</button>
         </div>
     </div>
 
-    <!-- Component 3: Persistent Bottom Banner Validation Ingest -->
+    <!-- Component 3: Persistent Bottom Display Banner (Display 468x60 Zone 11882082) -->
     <div class="banner-zone">
-        <h3>3. Permanent Bottom Banner Sandbox</h3>
-        <p>Embedded container catching live Adcash display overlay events on active domain interaction.</p>
-        <div class="banner-container" id="adcash-banner-box">
-            <span style="color: #666; font-size: 12px;">[ Adcash AutoTag Engine Active — Domain Verified ]</span>
+        <h3>3. Permanent Bottom Banner Ad Ingest</h3>
+        <p>This container hosts your live 468x60 Adcash Display Banner (Zone 11882082) during active gameplay.</p>
+        <div class="banner-container">
+            <div>
+                <script type="text/javascript">
+                    if (typeof aclib !== 'undefined') {
+                        aclib.runBanner({
+                            zoneId: '11882082',
+                        });
+                    }
+                </script>
+            </div>
         </div>
     </div>
 
-    <!-- Security Network Metadata -->
+    <!-- Security Network Vault Metadata Ledger -->
     <div class="api-panel">
-        <strong>Network Name:</strong> Adcash<br>
-        <strong>Active Zone ID:</strong> q7x1i3x1xw<br>
-        <strong>Library Script:</strong> https://acscdn.com/script/aclib.js<br>
-        <strong>Target Domain:</strong> https://bbgskillgamesstudio.qd.je
+        <strong>Ad Network:</strong> Adcash (Manual Zone Routing)<br>
+        <strong>Display Banner Zone ID:</strong> 11882082 (468x60 Banner)<br>
+        <strong>Static Interstitial Zone ID:</strong> 11882090<br>
+        <strong>Video Slider Zone ID:</strong> 11882102<br>
+        <strong>In-Stream VAST URL:</strong> https://youradexchange.com/video/select.php?r=11882098
     </div>
 </div>
 
 <script>
-    function triggerAdcashEvent(type) {
-        console.log("Triggering Adcash interaction event for: " + type);
-        
-        // Dispatch user event to force AutoTag triggers
-        if (typeof aclib !== 'undefined') {
-            aclib.runAutoTag({ zoneId: 'q7x1i3x1xw' });
+    function triggerDirectLiveAd(type) {
+        console.log("Directly initiating live network pull for component context: " + type);
+
+        if (type === 'video') {
+            // 1. Run Adcash Video Slider Engine
+            if (typeof aclib !== 'undefined') {
+                aclib.runVideoSlider({ zoneId: '11882102' });
+            }
+            // 2. Open Direct In-Stream VAST Stream in popup window (matching Hilltop/Adsterra behavior)
+            const vastUrl = "https://youradexchange.com/video/select.php?r=11882098";
+            window.open(vastUrl, "_blank", "width=1024,height=768,location=yes,resizable=yes,scrollbars=yes");
+
+        } else if (type === 'static') {
+            // Run Adcash Interstitial Overlay Engine
+            if (typeof aclib !== 'undefined') {
+                aclib.runInterstitial({ zoneId: '11882090' });
+            }
         }
     }
 </script>

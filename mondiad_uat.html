@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BBG-Skill-Games Studio — Mondiad UAT Hub</title>
+  <title>BBG-Skill-Games Studio — Mondiad Isolated UAT Hub</title>
 
   <!-- MONDIAD SITE VERIFICATION -->
   <meta name="mnd-ver" content="gohi8txg4bwvmft0pylolg" />
@@ -20,32 +20,34 @@
       background-color: #0f172a;
       color: #ffffff;
       text-align: center;
-      padding: 20px;
-      padding-bottom: 150px; /* Space for bottom banner */
+      padding: 40px 20px;
     }
 
     .header-box {
       border: 2px solid #ff4757;
       background-color: #1e293b;
-      padding: 20px;
-      border-radius: 10px;
+      padding: 25px;
+      border-radius: 12px;
       max-width: 600px;
-      margin: 0 auto 25px auto;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
     }
 
     .uat-badge {
       background: #ff4757;
       color: #fff;
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 12px;
       font-weight: bold;
       font-size: 12px;
+      letter-spacing: 1px;
     }
 
     h1 {
       color: #38bdf8;
-      font-size: 22px;
-      margin-top: 10px;
+      font-size: 24px;
+      margin-top: 12px;
+      margin-bottom: 8px;
     }
 
     p {
@@ -54,158 +56,214 @@
     }
 
     .button-container {
-      max-width: 500px;
+      max-width: 520px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .btn {
       background-color: #38bdf8;
       color: #0f172a;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: bold;
-      padding: 14px 20px;
+      padding: 16px 20px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .btn:hover {
       background-color: #0284c7;
       color: #ffffff;
+      transform: translateY(-2px);
     }
 
     .btn:active {
       transform: scale(0.98);
     }
 
-    #status-msg {
-      margin-top: 15px;
-      font-size: 14px;
-      font-weight: bold;
-      color: #34d399;
-      min-height: 24px;
+    .zone-tag {
+      background: rgba(15, 23, 42, 0.4);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
     }
 
-    .ad-display-box {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 15px;
-      border: 1px dashed #38bdf8;
-      border-radius: 8px;
-      background: #1e293b;
-      display: none;
-    }
-
-    /* FIXED BOTTOM BANNER */
-    .bottom-banner-container {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      min-height: 90px;
-      background: #1e293b;
-      border-top: 2px solid #38bdf8;
-      padding: 10px 0;
-      text-align: center;
-      z-index: 99999;
+    footer {
+      margin-top: 40px;
+      color: #64748b;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <div class="header-box">
-    <span class="uat-badge">UAT STAGING HUB</span>
-    <h1>Mondiad Ad Formats Testing</h1>
-    <p>Select a category below to execute and test the ad format.</p>
+    <span class="uat-badge">ISOLATED UAT STAGING HUB</span>
+    <h1>Mondiad Format Validator</h1>
+    <p>Click any format below to launch it in a dedicated test window.</p>
   </div>
 
-  <!-- 6 TEST BUTTONS -->
   <div class="button-container">
-    <button class="btn" onclick="runNative()">1. Test Native Ad (Zone 80632)</button>
-    <button class="btn" onclick="runInterstitial()">2. Test Interstitial Ad (Zone 80627)</button>
-    <button class="btn" onclick="runPopunder()">3. Test Popunder Ad (Zone 80628)</button>
-    <button class="btn" onclick="runDynamic()">4. Test Dynamic Ad (Zone 80629)</button>
-    <button class="btn" onclick="runInPagePush()">5. Test In-Page Push (Zone 80630)</button>
-    <button class="btn" onclick="runClassicPush()">6. Test Classic Push (Zone 80631)</button>
+    <button class="btn" onclick="openBannerWindow()">
+      <span>1. Banner Ad</span>
+      <span class="zone-tag">Zone 80626</span>
+    </button>
 
-    <div id="status-msg"></div>
+    <button class="btn" onclick="openNativeWindow()">
+      <span>2. Native Ad</span>
+      <span class="zone-tag">Zone 80632</span>
+    </button>
+
+    <button class="btn" onclick="openInterstitialWindow()">
+      <span>3. Interstitial Ad</span>
+      <span class="zone-tag">Zone 80627</span>
+    </button>
+
+    <button class="btn" onclick="openPopunderWindow()">
+      <span>4. Popunder Ad</span>
+      <span class="zone-tag">Zone 80628</span>
+    </button>
+
+    <button class="btn" onclick="openDynamicWindow()">
+      <span>5. Dynamic Floating Ad</span>
+      <span class="zone-tag">Zone 80629</span>
+    </button>
+
+    <button class="btn" onclick="openInPagePushWindow()">
+      <span>6. In-Page Push Ad</span>
+      <span class="zone-tag">Zone 80630</span>
+    </button>
+
+    <button class="btn" onclick="openClassicPushWindow()">
+      <span>7. Classic Push Ad</span>
+      <span class="zone-tag">Zone 80631</span>
+    </button>
   </div>
 
-  <!-- NATIVE AD CONTAINER -->
-  <div id="native-box" class="ad-display-box">
-    <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">Native Ad Slot (Zone 80632)</p>
-    <div data-mndazid="728b68f4-f99e-412b-a097-86849878ecc1"></div>
-  </div>
-
-  <!-- DYNAMIC AD CONTAINER -->
-  <div id="dynamic-box" class="ad-display-box">
-    <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">Dynamic Floating Slot (Zone 80629)</p>
-    <div data-mnddynid="553a1e5c-81ac-4251-9fd7-47dec91a951f"></div>
-  </div>
-
-  <!-- STICKY BOTTOM BANNER -->
-  <div class="bottom-banner-container">
-    <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Mondiad Banner Ad (Zone 80626)</div>
-    <div data-mndbanid="f18edcb6-dc5d-4230-ae93-257025a20165"></div>
-    <!-- Script placed directly inside container for reliable execution -->
-    <script src="https://ss.mrmnd.com/banner.js"></script>
-  </div>
+  <footer>
+    &copy; 2026 BBG Mobile App Developer — Mondiad Single-Unit Isolated Verification
+  </footer>
 
   <script>
-    function updateStatus(msg) {
-      document.getElementById('status-msg').innerText = msg;
-    }
-
-    function appendAdScript(src, attrs = {}) {
-      const s = document.createElement('script');
-      s.src = src;
-      for (const [key, val] of Object.entries(attrs)) {
-        s.setAttribute(key, val);
+    // Helper to open a clean isolated window for an ad test
+    function createAdTestWindow(title, zoneId, contentHtml, scriptSrc, scriptAttrs = {}) {
+      const win = window.open("", "_blank", "width=800,height=600,scrollbars=yes,resizable=yes");
+      
+      let attrString = "";
+      for (const [k, v] of Object.entries(scriptAttrs)) {
+        attrString += ` ${k}="${v}"`;
       }
-      document.body.appendChild(s);
+
+      const fullHtml = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Testing: ${title} (${zoneId})</title>
+          <meta name="mnd-ver" content="gohi8txg4bwvmft0pylolg" />
+          <style>
+            body { font-family: Arial, sans-serif; background: #0f172a; color: #fff; text-align: center; padding: 40px; margin: 0; }
+            .card { background: #1e293b; border: 2px solid #38bdf8; border-radius: 10px; padding: 20px; max-width: 650px; margin: 0 auto; }
+            h2 { color: #38bdf8; margin-bottom: 10px; }
+            p { color: #94a3b8; font-size: 14px; margin-bottom: 20px; }
+            .ad-area { min-height: 100px; padding: 15px; background: #0f172a; border: 1px dashed #64748b; border-radius: 8px; margin-top: 20px; }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <h2>${title}</h2>
+            <p>Zone ID: <strong>${zoneId}</strong></p>
+            <div class="ad-area">
+              ${contentHtml}
+            </div>
+          </div>
+          <script async src="${scriptSrc}"${attrString}><\/script>
+        </body>
+        </html>
+      `;
+
+      win.document.write(fullHtml);
+      win.document.close();
     }
 
-    // 1. Native Ad
-    function runNative() {
-      document.getElementById('native-box').style.display = 'block';
-      appendAdScript('https://ss.mrmnd.com/native.js');
-      updateStatus('⚡ Native Ad triggered.');
+    // 1. Banner
+    function openBannerWindow() {
+      createAdTestWindow(
+        "Banner Ad Format",
+        "80626",
+        '<div data-mndbanid="f18edcb6-dc5d-4230-ae93-257025a20165"></div>',
+        "https://ss.mrmnd.com/banner.js"
+      );
     }
 
-    // 2. Interstitial Ad
-    function runInterstitial() {
-      appendAdScript('https://ss.mrmnd.com/interstitial.js', { 'data-mndintid': '2ef58810-d585-4fba-ba2a-bb2adcd29ff7' });
-      updateStatus('⚡ Interstitial script attached.');
+    // 2. Native
+    function openNativeWindow() {
+      createAdTestWindow(
+        "Native Ad Format",
+        "80632",
+        '<div data-mndazid="728b68f4-f99e-412b-a097-86849878ecc1"></div>',
+        "https://ss.mrmnd.com/native.js"
+      );
     }
 
-    // 3. Popunder Ad
-    function runPopunder() {
-      appendAdScript('https://ss.mrmnd.com/popunder.js', { 'data-mndpopid': '962e6f8c-77c1-4e17-bc44-b48a82991414' });
-      updateStatus('⚡ Popunder active — click anywhere on the page to test.');
+    // 3. Interstitial
+    function openInterstitialWindow() {
+      createAdTestWindow(
+        "Interstitial Ad Format",
+        "80627",
+        '<p style="color:#34d399;">⚡ Interstitial loaded. Click anywhere in this new window to view the full-screen overlay.</p>',
+        "https://ss.mrmnd.com/interstitial.js",
+        { "data-mndintid": "2ef58810-d585-4fba-ba2a-bb2adcd29ff7" }
+      );
     }
 
-    // 4. Dynamic Ad
-    function runDynamic() {
-      document.getElementById('dynamic-box').style.display = 'block';
-      appendAdScript('https://ss.mrmnd.com/dynamic.js');
-      updateStatus('⚡ Dynamic Ad script attached.');
+    // 4. Popunder
+    function openPopunderWindow() {
+      createAdTestWindow(
+        "Popunder Ad Format",
+        "80628",
+        '<p style="color:#34d399;">⚡ Popunder loaded. Click anywhere inside this window to trigger the underlying ad window.</p>',
+        "https://ss.mrmnd.com/popunder.js",
+        { "data-mndpopid": "962e6f8c-77c1-4e17-bc44-b48a82991414" }
+      );
     }
 
-    // 5. In-Page Push
-    function runInPagePush() {
-      appendAdScript('https://ss.mrmnd.com/static/6b5cc626-dcfa-42c8-9bfd-ee7ba8e4fc30.js');
-      updateStatus('⚡ In-Page Push script loaded.');
+    // 5. Dynamic
+    function openDynamicWindow() {
+      createAdTestWindow(
+        "Dynamic Ad Format",
+        "80629",
+        '<p style="color:#34d399;">⚡ Dynamic loaded. Look for the floating top/bottom bar attaching to this window.</p><div data-mnddynid="553a1e5c-81ac-4251-9fd7-47dec91a951f"></div>',
+        "https://ss.mrmnd.com/dynamic.js",
+        { "data-mnddynid": "553a1e5c-81ac-4251-9fd7-47dec91a951f" }
+      );
     }
 
-    // 6. Classic Push
-    function runClassicPush() {
-      appendAdScript('https://ss.mrmnd.com/static/49ef5365-1fc7-4d28-8a6c-681b152fb256.js');
-      updateStatus('⚡ Classic Push request initiated.');
+    // 6. In-Page Push
+    function openInPagePushWindow() {
+      createAdTestWindow(
+        "In-Page Push Format",
+        "80630",
+        '<p style="color:#34d399;">⚡ In-Page Push loaded. Look for the sliding notification box inside this window.</p>',
+        "https://ss.mrmnd.com/static/6b5cc626-dcfa-42c8-9bfd-ee7ba8e4fc30.js"
+      );
+    }
+
+    // 7. Classic Push
+    function openClassicPushWindow() {
+      createAdTestWindow(
+        "Classic Push Format",
+        "80631",
+        '<p style="color:#34d399;">⚡ Classic Push loaded. Look for the browser notification prompt near the URL bar.</p>',
+        "https://ss.mrmnd.com/static/49ef5365-1fc7-4d28-8a6c-681b152fb256.js"
+      );
     }
   </script>
 

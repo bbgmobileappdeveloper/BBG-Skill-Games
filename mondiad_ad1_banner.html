@@ -5,12 +5,58 @@
     <title>Mondiad Test - 1. Banner</title>
     <meta name="mnd-ver" content="gohi8txg4bwvmft0pylolg" />
     <script async src="https://ss.mrmnd.com/banner.js"></script>
+    <style>
+        body { 
+            background: #121212; 
+            color: #ffffff; 
+            text-align: center; 
+            padding: 50px 20px; 
+            font-family: Arial, sans-serif; 
+        }
+        h1 { color: #f2c94c; }
+        p { color: #828282; }
+
+        /* Standard 728x90 Banner Container */
+        .banner-box-728 {
+            width: 728px;
+            height: 90px;
+            margin: 30px auto;
+            border: 1px dashed #f2c94c;
+            background: #1e1e1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Standard 300x250 Rectangle Container (Alternative) */
+        .banner-box-300 {
+            width: 300px;
+            height: 250px;
+            margin: 20px auto;
+            border: 1px dashed #38bdf8;
+            background: #1e1e1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body style="background:#121212; color:#fff; text-align:center; padding:50px; font-family:sans-serif;">
-    <h1 style="color:#f2c94c;">1. Banner Ad Test (Zone 80626)</h1>
-    <p>The ad container is placed directly below:</p>
-    <div style="margin-top:30px; display:inline-block; border:1px dashed #f2c94c; padding:10px;">
+<body>
+
+    <h1>1. Banner Ad Test (Zone 80626)</h1>
+    <p>Container defined with explicit dimensions (728x90 and 300x250)</p>
+
+    <!-- 728x90 Slot -->
+    <div class="banner-box-728">
         <div data-mndbanid="f18edcb6-dc5d-4230-ae93-257025a20165"></div>
     </div>
+
+    <!-- 300x250 Slot -->
+    <div class="banner-box-300">
+        <div data-mndbanid="f18edcb6-dc5d-4230-ae93-257025a20165"></div>
+    </div>
+
 </body>
 </html>

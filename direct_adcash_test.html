@@ -8,6 +8,9 @@
     <!-- ADCASH JS LIBRARY INGESTION -->
     <script id="aclib" type="text/javascript" src="https://acscdn.com/script/aclib.js"></script>
 
+    <!-- FLUID PLAYER ENGINE FOR VAST TAG PULLS -->
+    <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+
     <style>
         body {
             background-color: #121212;
@@ -88,6 +91,34 @@
             border: 1px solid #333;
             text-align: left;
         }
+
+        /* VAST VIDEO MODAL OVERLAY STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-box {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #f2c94c;
+            width: 90%;
+            max-width: 640px;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            color: #f2c94c;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -97,14 +128,14 @@
     <div class="subtitle">Direct Adcash Manual Zone Verification Sandbox (Bypass Node-RED)</div>
 
     <div class="test-grid">
-        <!-- Component 1: Video Ad Validation Card (Video Slider Zone 11882102 + In-Stream VAST 11882098) -->
+        <!-- Component 1: Video Ad Validation Card -->
         <div class="card">
             <h3>1. Video Ad Test</h3>
-            <p>Triggers Adcash Video Slider (Zone 11882102) and opens direct live VAST video stream panel (Zone 11882098).</p>
+            <p>Triggers Adcash Video Slider (Zone 11882102) and initializes VAST Video Player (Zone 11882098).</p>
             <button class="btn" onclick="triggerDirectLiveAd('video')">Launch Video Ad</button>
         </div>
 
-        <!-- Component 2: Static Interstitial Validation Card (Interstitial Zone 11882090) -->
+        <!-- Component 2: Static Interstitial Validation Card -->
         <div class="card">
             <h3>2. Static Interstitial Ad</h3>
             <p>Fires full-page static interstitial overlay (Zone 11882090) to simulate level completion monetization.</p>
@@ -112,7 +143,7 @@
         </div>
     </div>
 
-    <!-- Component 3: Persistent Bottom Display Banner (Display 468x60 Zone 11882082) -->
+    <!-- Component 3: Persistent Bottom Display Banner -->
     <div class="banner-zone">
         <h3>3. Permanent Bottom Banner Ad Ingest</h3>
         <p>This container hosts your live 468x60 Adcash Display Banner (Zone 11882082) during active gameplay.</p>
@@ -139,7 +170,20 @@
     </div>
 </div>
 
+<!-- IN-STREAM VAST VIDEO PLAYER MODAL -->
+<div id="videoModal" class="modal-overlay">
+    <div class="modal-box">
+        <span class="close-btn" onclick="closeVideoModal()">&times;</span>
+        <h3 style="color: #f2c94c; margin-top: 0;">In-Stream Video Ad Player (VAST 11882098)</h3>
+        <video id="adcash-vast-player" style="width: 100%; height: 360px;">
+            <source src="https://cdn.fluidplayer.com/videos/sample.mp4" type="video/mp4"/>
+        </video>
+    </div>
+</div>
+
 <script>
+    let playerInstance = null;
+
     function triggerDirectLiveAd(type) {
         console.log("Directly initiating live network pull for component context: " + type);
 
@@ -148,15 +192,37 @@
             if (typeof aclib !== 'undefined') {
                 aclib.runVideoSlider({ zoneId: '11882102' });
             }
-            // 2. Open Direct In-Stream VAST Stream in popup window (matching Hilltop/Adsterra behavior)
-            const vastUrl = "https://youradexchange.com/video/select.php?r=11882098";
-            window.open(vastUrl, "_blank", "width=1024,height=768,location=yes,resizable=yes,scrollbars=yes");
+            
+            // 2. Open VAST Video Player Modal
+            document.getElementById('videoModal').style.display = 'flex';
+            
+            if (!playerInstance) {
+                playerInstance = fluidPlayer('adcash-vast-player', {
+                    vastOptions: {
+                        adList: [
+                            {
+                                roll: 'preRoll',
+                                vastTag: 'https://youradexchange.com/video/select.php?r=11882098'
+                            }
+                        ]
+                    }
+                });
+            } else {
+                playerInstance.play();
+            }
 
         } else if (type === 'static') {
             // Run Adcash Interstitial Overlay Engine
             if (typeof aclib !== 'undefined') {
                 aclib.runInterstitial({ zoneId: '11882090' });
             }
+        }
+    }
+
+    function closeVideoModal() {
+        document.getElementById('videoModal').style.display = 'none';
+        if (playerInstance) {
+            playerInstance.pause();
         }
     }
 </script>

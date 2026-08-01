@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BBG Skill Games - Direct Adcash UAT Sandbox</title>
+    
+    <!-- ADCASH AUTOTAG INTEGRATION SCRIPT -->
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+    <script type="text/javascript">
+        aclib.runAutoTag({
+            zoneId: 'q7x1i3x1xw',
+        });
+    </script>
+
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #f2c94c;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h1 { color: #f2c94c; margin-bottom: 5px; }
+        .subtitle { color: #828282; font-size: 14px; margin-bottom: 30px; }
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #4f4f4f;
+            text-align: center;
+        }
+        .card h3 { margin-top: 0; color: #f2c94c; }
+        .card p { font-size: 13px; color: #cccccc; margin-bottom: 15px; }
+        .btn {
+            display: inline-block;
+            background: #f2c94c;
+            color: #121212;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #ffd966; }
+        .info-zone {
+            margin-top: 20px;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed #f2c94c;
+            text-align: left;
+        }
+        .info-zone h3 { margin-top: 0; color: #f2c94c; text-align: center; }
+        .info-zone ul { margin: 10px 0; padding-left: 20px; color: #d1d5db; font-size: 13px; }
+        .info-zone li { margin-bottom: 8px; }
+        .api-panel {
+            background: #151515;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #828282;
+            word-break: break-all;
+            margin-top: 20px;
+            border: 1px solid #333;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h1>BBG SKILL GAMES</h1>
+    <div class="subtitle">Direct Adcash AutoTag Verification Sandbox — (Bypass Node-RED)</div>
+
+    <div class="test-grid">
+        <!-- Test 1: Click Trigger for Pop-Under / In-Page Push -->
+        <div class="card">
+            <h3>1. Trigger Click Event</h3>
+            <p>Simulates user interaction to trigger active Adcash Pop-Under or Push Notification.</p>
+            <button class="btn" onclick="registerUserClick('Card Action 1')">Simulate Click Action</button>
+        </div>
+
+        <!-- Test 2: Game Interstitial Simulation -->
+        <div class="card">
+            <h3>2. Game Interstitial Event</h3>
+            <p>Fires background click focus event to test dynamic Interstitial loading.</p>
+            <button class="btn" onclick="registerUserClick('Card Action 2')">Launch Game Event</button>
+        </div>
+    </div>
+
+    <!-- Operational Note Zone -->
+    <div class="info-zone">
+        <h3>3. Adcash AutoTag Mechanics Sandbox</h3>
+        <ul>
+            <li><strong>AutoTag Engine Status:</strong> Active (Script loaded directly in <code>&lt;head&gt;</code>).</li>
+            <li><strong>Monetization Formats:</strong> Pop-Under, In-Page Push, Interstitial, and Video-Slider.</li>
+            <li><strong>Testing Requirement:</strong> Turn off any local browser AdBlockers / uBlock / Brave Shields to allow pop-ups.</li>
+        </ul>
+    </div>
+
+    <!-- API / Zone Metadata -->
+    <div class="api-panel">
+        <strong>Network Name:</strong> Adcash<br>
+        <strong>Active Zone ID:</strong> q7x1i3x1xw<br>
+        <strong>Library Script:</strong> //acscdn.com/script/aclib.js<br>
+        <strong>Target Domain:</strong> https://bbgskillgamesstudio.qd.je
+    </div>
+</div>
+
+<script>
+    function registerUserClick(actionName) {
+        console.log("User interaction logged: " + actionName);
+    }
+</script>
+
+</body>
+</html>

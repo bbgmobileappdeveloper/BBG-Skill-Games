@@ -27,37 +27,37 @@
             align-items: center;
             overflow: hidden;
         }
-        #ad-container {
+        #ad-wrapper {
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             position: relative;
         }
         
-        /* Critical Warning Display */
-        .critical-warning {
+        /* Warning Banners */
+        .status-box {
             display: none;
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             background-color: #1a0505;
             border: 2px solid #ff3333;
             border-radius: 12px;
             max-width: 85%;
             box-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
         }
-        .critical-warning h2 {
+        .status-box h2 {
             color: #ff3333;
-            font-size: 1.4rem;
-            margin-bottom: 12px;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        .critical-warning p {
+        .status-box p {
             color: #dddddd;
-            font-size: 1rem;
-            margin-bottom: 18px;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
         }
         .retry-btn {
             background-color: #ff3333;
@@ -74,25 +74,25 @@
 </head>
 <body>
 
-    <div id="ad-container">
+    <div id="ad-wrapper">
         <!-- Critical Warning Banner -->
-        <div id="offline-warning" class="critical-warning">
+        <div id="offline-warning" class="status-box">
             <h2>CRITICAL WARNING</h2>
             <p>No Internet found. Connect to Internet First and then play.</p>
             <button class="retry-btn" onclick="retryConnection()">Retry Connection</button>
         </div>
+
+        <!-- Ad Insertion Point -->
+        <div id="juicyads-target"></div>
     </div>
 
     <script>
-        // 1. CLEAR ANY PREVIOUS CACHE IMMEDIATELY ON LOAD
+        // 1. Clear local cache immediately on startup
         clearAllPageCache();
 
         function clearAllPageCache() {
-            // Clear Web Storage
             if (window.localStorage) localStorage.clear();
             if (window.sessionStorage) sessionStorage.clear();
-
-            // Clear Cache API Storage (if supported by Webview)
             if ('caches' in window) {
                 caches.keys().then(function(names) {
                     for (let name of names) {
@@ -103,33 +103,35 @@
         }
 
         function verifyAndLoadAd() {
-            // Check basic navigator state
+            // Check basic navigator online status
             if (!navigator.onLine) {
                 showCriticalWarning();
-                return; // PAUSE & STOP EXECUTION
+                return;
             }
 
-            // Perform live network ping check
+            // PING YOUR OWN DOMAIN to check actual internet access (Bypasses AdBlock / Tracker Protection blocks)
             var cacheBuster = Date.now();
-            fetch('https://js.juicyads.com/juicyads.native-ads.min.js?ping=' + cacheBuster, { 
+            var pingUrl = window.location.origin + window.location.pathname + '?ping=' + cacheBuster;
+
+            fetch(pingUrl, { 
                 method: 'HEAD', 
-                mode: 'no-cors',
-                cache: 'no-store'
+                cache: 'no-store' 
             })
-            .then(function() {
-                // Connection confirmed: inject and play ads
-                hideWarning();
-                injectJuicyAdsScript(cacheBuster);
+            .then(function(response) {
+                if (response.ok || response.type === 'opaque') {
+                    hideWarning();
+                    injectJuicyAds(cacheBuster);
+                } else {
+                    showCriticalWarning();
+                }
             })
             .catch(function() {
-                // Ping failed: network issue present
                 showCriticalWarning();
             });
         }
 
         function showCriticalWarning() {
             document.getElementById('offline-warning').style.display = 'block';
-            // Wipe any cached memory state
             clearAllPageCache();
         }
 
@@ -142,20 +144,28 @@
             verifyAndLoadAd();
         }
 
-        function injectJuicyAdsScript(cacheBuster) {
+        function injectJuicyAds(cacheBuster) {
+            var targetContainer = document.getElementById('juicyads-target');
+            targetContainer.innerHTML = ''; // Ensure container is clean
+
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.setAttribute('data-id', 'juicyads-native-ads');
             script.setAttribute('data-ad-zone', '1124022');
             script.setAttribute('data-targets', 'a');
+            script.async = true;
             
             // Append dynamic cache-buster parameter
             script.src = 'https://js.juicyads.com/juicyads.native-ads.min.js?cb=' + cacheBuster;
 
-            document.getElementById('ad-container').appendChild(script);
+            script.onerror = function() {
+                console.warn('JuicyAds script was blocked by browser ad blocker / tracking protection.');
+            };
+
+            targetContainer.appendChild(script);
         }
 
-        // Wipe cache again if the user or app navigates away/closes page
+        // Wipe cache when leaving/closing the page
         window.addEventListener('beforeunload', clearAllPageCache);
         window.addEventListener('unload', clearAllPageCache);
 

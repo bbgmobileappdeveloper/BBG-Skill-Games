@@ -1,0 +1,20 @@
+{
+  "quorum_required": 2,
+  "endpoints": [
+    {
+      "url": "https://clients3.google.com/generate_204",
+      "expected_code": 204,
+      "verify_header": ""
+    },
+    {
+      "url": "https://1.1.1.1/cdn-cgi/trace",
+      "expected_code": 200,
+      "verify_header": "cf-ray"
+    },
+    {
+      "url": "https://www.cloudflare.com/cdn-cgi/trace",
+      "expected_code": 200,
+      "verify_header": "h="
+    }
+  ]
+}
